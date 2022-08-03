@@ -34,6 +34,7 @@ If you get at least one result, it means that your site is affected by the bug, 
 
 ADVICE
 Before using the plugin on a live site, be sure to save a backup of the database and test it on a dev or staging site first.
+You run this at your own risk and I am not liable for any loss of data (see LICENSE.txt for more info).
 
 == Installation ==
 
