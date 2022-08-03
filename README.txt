@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors:
-Tags: woocommerce, woocommerce address book
+Tags: WooCommerce, woocommerce address book, database clean, bug
 Requires at least: 6.0.1
 Tested up to: 6.0.1
 Stable tag: 1.0.0

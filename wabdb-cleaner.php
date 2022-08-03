@@ -2,22 +2,22 @@
 
 /**
  * Plugin Name:       WooCommerce Address Book DB Cleaner
- * Plugin URI:        -
+ * Plugin URI:        https://github.com/andre-dane-dev/woo-address-book-db-cleaner
  * Description:       This plugin has the function of cleaning up the database
  *                    following the WooCommerce Address Book plugin bug,
  *                    which created duplicate usermeta if the billing or
  *                    shipping address was disabled in checkout.
  * Version:           1.0.0
- * Author:            andre-dane-dev
+ * Author:            andre-dane-dev<andre.dane.dev@gmail.com>
  * Author URI:        https://github.com/andre-dane-dev
  * License:           GNU General Public License v3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       woo-address-book-db-cleaner
  * Domain Path:       /languages
  *
- * WC tested up to: 6.2.0
- * WC requires at least: 6.0
- * Tested up to: 5.9.0
+ * WC tested up to: 6.7.0
+ * WC requires at least: 6.7.0
+ * Tested up to: 6.0.1
  *
  * Copyright (C) 2022 AndreDane
  * This program is free software: you can redistribute it and/or modify
@@ -119,7 +119,6 @@ class Woo_Address_Book_DB_Cleaner {
      *
      * @since  1.0.0
      *
-     * @see    #486
      * @see    https://github.com/hallme/woo-address-book/issues/128
      * @see    https://stackoverflow.com/a/10634225
      * @return void
