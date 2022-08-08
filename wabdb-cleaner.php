@@ -7,7 +7,7 @@
  *                    following the WooCommerce Address Book plugin bug,
  *                    which created duplicate usermeta if the billing or
  *                    shipping address was disabled in checkout.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            andre-dane-dev<andre.dane.dev@gmail.com>
  * Author URI:        https://github.com/andre-dane-dev
  * License:           GNU General Public License v3.0
@@ -85,6 +85,7 @@ class Woo_Address_Book_DB_Cleaner {
 			</p>
             <p id="cleaner_delete_response"><?php _e( 'Click on the button to run the db cleaner.', 'woo-address-book-db-cleaner' ) ?></p>
             <p id="cleaner_update_response"></p>
+            <p id="cleaner_affected_response"></p>
 		</div>
 
         <script type="text/javascript">
@@ -103,6 +104,7 @@ class Woo_Address_Book_DB_Cleaner {
                                 if ( response ) {
                                     $('#cleaner_delete_response').html( response['deleted'] );
                                     $('#cleaner_update_response').html( response['updated'] );
+                                    $('#cleaner_affected_response').html( response['affected'] );
                                 }
                             }
                         } )
@@ -117,11 +119,12 @@ class Woo_Address_Book_DB_Cleaner {
      * Delete additional billing related user meta and update original meta value.
      * NOTE to fix bug caused by WooCommerce Address Book.
      *
-     * @since  1.0.0
+     * @since   1.0.0
      *
-     * @see    https://github.com/hallme/woo-address-book/issues/128
-     * @see    https://stackoverflow.com/a/10634225
-     * @return void
+     * @version 1.0.1 - added affected users log
+     * @see     https://github.com/hallme/woo-address-book/issues/128
+     * @see     https://stackoverflow.com/a/10634225
+     * @return  void
      */
     public function wabdbc_run_db_cleaner() {
         global $wpdb;
@@ -131,6 +134,7 @@ class Woo_Address_Book_DB_Cleaner {
         $all_meta_to_delete    = array();
         $all_updated_meta      = array();
         $all_updated_meta_logs = array();
+		$affected_users        = array();
 
 		// Declare array for response
 		$response              = array();
@@ -170,6 +174,11 @@ class Woo_Address_Book_DB_Cleaner {
                         // Store usermeta id for later bulk deletion
                         $all_meta_to_delete['umeta_id'][] = $meta['umeta_id'];
 
+						// Store affected users id
+						if ( ! in_array( $user_id, $affected_users ) ) {
+							$affected_users[] = $user_id;
+						}
+
                         if ( ! $update_meta_value ) continue;
 
                         // Store data for later bulk update
@@ -202,16 +211,34 @@ class Woo_Address_Book_DB_Cleaner {
 
         // Delete all stored additional meta
         foreach ( $all_meta_to_delete as $key => $value ) {
-            $sql = "
+            $delete_sql = "
                 DELETE FROM {$wpdb->usermeta}
                 WHERE " . $key . " IN ("
                 . implode( ', ', array_fill( 0, count( $value ), '%s' ) ) . ")
             ";
             // See https://stackoverflow.com/a/10634225
-            $query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $value ) );
+            $affected_query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $delete_sql ), $value ) );
 
-            $wpdb->query( $query );
+            $wpdb->query( $affected_query );
         }
+
+		// Log affected users id
+		if ( $affected_users ) {
+			$affected_sql = "
+				DELETE FROM {$wpdb->usermeta}
+				WHERE meta_key = 'wc_address_book_billing'
+				AND user_id IN ("
+				. implode( ', ', array_fill( 0, count( $affected_users ), '%s' ) ) . ")
+			";
+			// See https://stackoverflow.com/a/10634225
+			$affected_query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $affected_sql ), $affected_users ) );
+
+			$wpdb->query( $affected_query );
+
+			$response['affected'] = 'Affected users: #' . implode( ', #', $affected_users );
+		} else {
+			$response['affected'] = 'No affected users.';
+		}
 
         // Prepare response
         if ( isset( $all_meta_to_delete['umeta_id'] ) ) {

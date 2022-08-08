@@ -3,7 +3,7 @@ Contributors:
 Tags: WooCommerce, woocommerce address book, database clean, bug
 Requires at least: 6.0.1
 Tested up to: 6.0.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -42,3 +42,8 @@ You run this at your own risk and I am not liable for any loss of data (see LICE
 OR Download `woo-address-book-db-cleaner.zip` and upload it directly in the admin panel of your site going to to the `Plugin -> Add new -> Upload plugin`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Tools -> Available tools -> DB Cleaner for WooCommerce Address Book
+
+== CHANGELOG == 
+
+v1.0.1
+- Added affected users log
