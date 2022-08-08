@@ -222,7 +222,7 @@ class Woo_Address_Book_DB_Cleaner {
             $wpdb->query( $affected_query );
         }
 
-		// Log affected users id
+		// Log affected users id & delete wc_address_book_billing meta
 		if ( $affected_users ) {
 			$affected_sql = "
 				DELETE FROM {$wpdb->usermeta}

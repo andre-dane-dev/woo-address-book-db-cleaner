@@ -43,7 +43,7 @@ OR Download `woo-address-book-db-cleaner.zip` and upload it directly in the admi
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Tools -> Available tools -> DB Cleaner for WooCommerce Address Book
 
-== CHANGELOG == 
+== CHANGELOG ==
 
 v1.0.1
-- Added affected users log
+- Added affected users log & delete wc_address_book_billing meta
