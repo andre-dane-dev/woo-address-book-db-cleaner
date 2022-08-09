@@ -1,6 +1,5 @@
 === DB Cleaner for WooCommerce Address Book ===
-Contributors:
-Tags: WooCommerce, woocommerce address book, database clean, bug
+Tags: woocommerce, woocommerce address book, database cleaning, bug
 Requires at least: 6.0.1
 Tested up to: 6.0.1
 Stable tag: 1.0.1
