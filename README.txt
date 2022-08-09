@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== DB Cleaner for WooCommerce Address Book ===
 Contributors:
 Tags: WooCommerce, woocommerce address book, database clean, bug
 Requires at least: 6.0.1
