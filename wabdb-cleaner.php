@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:       WooCommerce Address Book DB Cleaner
+ * Plugin Name:       DB Cleaner for WooCommerce Address Book
  * Plugin URI:        https://github.com/andre-dane-dev/woo-address-book-db-cleaner
  * Description:       This plugin has the function of cleaning up the database
  *                    following the WooCommerce Address Book plugin bug,
